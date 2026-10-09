@@ -1,4 +1,4 @@
-name: Build munch SukiSU repack
+name: Build munch RKSU repack
 
 on:
   workflow_dispatch:
@@ -7,25 +7,25 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - name: Checkout
+      - name: Checkout rksu branch
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+          ref: android16-aptusitu-rksu
 
       - name: Install deps
         run: |
           sudo apt update
           sudo apt install -y build-essential git curl wget bison flex zip bc cpio libssl-dev ccache python-is-python3 tar unzip gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi
 
-      - name: Setup ZyC clang
+      - name: Setup proton clang
         run: |
-          mkdir -p $HOME/zyc-clang
-          cd $HOME/zyc-clang
-          wget -q https://github.com/ZyCromerZ/Clang/releases/download/15.0.7-20251111-release/Clang-15.0.7-20251111.tar.gz
-          tar xzf Clang-15.0.7-20251111.tar.gz
-          cd $GITHUB_WORKSPACE
+          mkdir -p $HOME/proton-clang
+          cd $HOME/proton-clang
+          wget -q https://github.com/kdrag0n/proton-clang/archive/refs/tags/20210522.zip
+          unzip -q 20210522.zip
 
-      - name: Build kernel SukiSU SUSFS
+      - name: Build kernel RKSU
         continue-on-error: true
         run: bash build.sh munch ksu
 
@@ -38,8 +38,8 @@ jobs:
 
       - name: Get magiskboot
         run: |
-          wget -q https://github.com/topjohnwu/Magisk/releases/download/v27.0/Magisk-v27.0.apk -O magisk.apk
-          unzip -o magisk.apk 'lib/x86_64/libmagiskboot.so' -d mb
+          wget -q https://github.com/topjohnwu/Magisk/releases/download/v27.0/Magisk-v27.0.apk -O m.apk
+          unzip -o m.apk 'lib/x86_64/libmagiskboot.so' -d mb
           cp mb/lib/x86_64/libmagiskboot.so magiskboot
           chmod +x magiskboot
 
