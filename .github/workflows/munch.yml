@@ -27,10 +27,7 @@ jobs:
 
       - name: Build kernel SukiSU SUSFS
         continue-on-error: true
-        run: |
-          sed -i '/^[[:space:]]*-e KSU[[:space:]]*\$/a\    -e KSU_MANUAL_HOOK \\' build.sh
-          grep -n 'KSU_MANUAL_HOOK' build.sh
-          bash build.sh munch ksu
+        run: bash build.sh munch ksu
 
       - name: Extract AOSP Image
         run: |
