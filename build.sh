@@ -124,6 +124,7 @@ if [ $KSU_ENABLE -eq 1 ]; then
     scripts/config --file out/.config \
     -e KSU \
     -e KSU_MANUAL_HOOK \
+    -e KSU_MANUAL_HOOK \
     -e KSU_SUSFS \
     -e KSU_SUSFS_SUS_PATH \
     -e KSU_SUSFS_SUS_MOUNT \
@@ -258,6 +259,7 @@ make $MAKE_ARGS ${TARGET_DEVICE}_defconfig
 if [ $KSU_ENABLE -eq 1 ]; then
     scripts/config --file out/.config \
     -e KSU \
+    -e KSU_MANUAL_HOOK \
     -e KSU_MANUAL_HOOK \
     -e KSU_SUSFS \
     -e KSU_SUSFS_SUS_PATH \
